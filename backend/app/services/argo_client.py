@@ -96,20 +96,15 @@ FLOAT_TTL = 43200  # 12 hours
 
 
 def _build_erddap_url() -> str:
-    # Focused on the Northern Indian Ocean where seed floats are located.
-    # The full-IO bbox (lat -30 to 26, lon 40 to 110) returns 2000+ rows
-    # and exceeds the 15s timeout. This narrower query (lat -5 to 26, lon 55 to 100)
-    # covers the Arabian Sea, Bay of Bengal, and Equatorial IO — the three regions
-    # where our seed floats operate — and returns in under 5 seconds.
-    # Recency filter (time>=2020) eliminates dead floats from 2003-2015 that
-    # bloat the response without providing usable current positions.
+    # Query active Indian Ocean Argo floats (2024-present)
+    # Covering Arabian Sea, Bay of Bengal, and Equatorial Indian Ocean
     return (
         f"{ERDDAP_BASE}/tabledap/{ARGO_DATASET}.json"
         f"?platform_number,latitude,longitude,time,pres,temp,psal"
-        f"&latitude>=-5&latitude<=26"
-        f"&longitude>=55&longitude<=100"
+        f"&latitude>=-10&latitude<=25"
+        f"&longitude>=50&longitude<=100"
         f"&pres<=10"
-        f'&time>=2020-01-01T00:00:00Z'
+        f'&time>=2024-01-01T00:00:00Z'
         f'&orderByMax("platform_number,time")'
         f"&distinct()"
     )
@@ -147,7 +142,11 @@ def _background_fetch() -> None:
     with _lock:
         _cache["status"] = "fetching"
     try:
-        resp = requests.get(_build_erddap_url(), timeout=25)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 VaruNet/3.0"
+        }
+        # Allow sufficient time for IFREMER's large Indian Ocean multidimensional table query
+        resp = requests.get(_build_erddap_url(), headers=headers, timeout=75)
         resp.raise_for_status()
         floats = _parse_erddap(resp.json())
         with _lock:
@@ -156,7 +155,7 @@ def _background_fetch() -> None:
                 _cache["source"]     = f"IFREMER ERDDAP (live, {len(floats)} floats)"
             _cache["fetched_at"] = time.time()
             _cache["status"]     = "ready"
-        logger.info("ERDDAP live fetch succeeded: %d floats", len(floats))
+        logger.info("ERDDAP live fetch succeeded: %d floats synced", len(floats))
     except Exception as exc:
         with _lock:
             _cache["status"] = "error"
