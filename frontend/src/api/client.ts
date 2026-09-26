@@ -5,7 +5,11 @@
  * a real observation, real model output, or a physics fallback.
  */
 
-export const API_BASE = import.meta.env.VITE_API_URL ?? '';
+export const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  (typeof window !== 'undefined' && !['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? 'https://varunet-backend-uloa.onrender.com'
+    : '');
 
 async function apiFetch<T>(path: string, options?: RequestInit, maxRetries = 4, baseDelayMs = 2000): Promise<T> {
   let lastError: any = null;

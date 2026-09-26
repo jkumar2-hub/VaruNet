@@ -17,10 +17,10 @@
 | Component | Cloud Provider | URL | Status |
 | :--- | :--- | :--- | :--- |
 | **Tactical Command Deck (Frontend)** | Vercel Global Edge CDN | **[https://varu-net.vercel.app/](https://varu-net.vercel.app/)** | `Operational` |
-| **FastAPI Hydrodynamic Engine (Backend)** | Render Cloud Web Service | **`https://varunet-backend.onrender.com`** | `Operational` |
-| **Interactive API Documentation** | Swagger OpenAPI 3.0 | **`https://varunet-backend.onrender.com/docs`** | `Active` |
-| **OGC WMS 1.3.0 Endpoint** | Open Geospatial Consortium | **`https://varunet-backend.onrender.com/wms?SERVICE=WMS&REQUEST=GetCapabilities`** | `Active` |
-| **OGC WCS 1.1.2 Endpoint** | Open Geospatial Consortium | **`https://varunet-backend.onrender.com/wcs?SERVICE=WCS&REQUEST=GetCapabilities`** | `Active` |
+| **FastAPI Hydrodynamic Engine (Backend)** | Render Cloud Web Service | **`https://varunet-backend-uloa.onrender.com`** | `Operational` |
+| **Interactive API Documentation** | Swagger OpenAPI 3.0 | **[https://varunet-backend-uloa.onrender.com/docs](https://varunet-backend-uloa.onrender.com/docs)** | `Active` |
+| **OGC WMS 1.3.0 Endpoint** | Open Geospatial Consortium | **`https://varunet-backend-uloa.onrender.com/wms?SERVICE=WMS&REQUEST=GetCapabilities`** | `Active` |
+| **OGC WCS 1.1.2 Endpoint** | Open Geospatial Consortium | **`https://varunet-backend-uloa.onrender.com/wcs?SERVICE=WCS&REQUEST=GetCapabilities`** | `Active` |
 
 ---
 
