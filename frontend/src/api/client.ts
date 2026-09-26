@@ -7,13 +7,38 @@
 
 export const API_BASE = import.meta.env.VITE_API_URL ?? '';
 
-async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
-  const resp = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: { 'Content-Type': 'application/json', ...(options?.headers ?? {}) },
-  });
-  if (!resp.ok) throw new Error(`API ${path} → HTTP ${resp.status}`);
-  return resp.json() as Promise<T>;
+async function apiFetch<T>(path: string, options?: RequestInit, maxRetries = 4, baseDelayMs = 2000): Promise<T> {
+  let lastError: any = null;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const resp = await fetch(`${API_BASE}${path}`, {
+        ...options,
+        headers: { 'Content-Type': 'application/json', ...(options?.headers ?? {}) },
+      });
+      // Cloud free tier (Render) wake-up codes: 502 Bad Gateway, 503 Service Unavailable, 504 Gateway Timeout
+      if (!resp.ok) {
+        if ([502, 503, 504].includes(resp.status) && attempt < maxRetries) {
+          const delay = baseDelayMs * Math.pow(1.5, attempt);
+          console.warn(`[VaruNet] Cloud backend waking up (HTTP ${resp.status}). Retrying ${path} in ${Math.round(delay)}ms (attempt ${attempt + 1}/${maxRetries})...`);
+          await new Promise((r) => setTimeout(r, delay));
+          continue;
+        }
+        throw new Error(`API ${path} → HTTP ${resp.status}`);
+      }
+      return (await resp.json()) as T;
+    } catch (err: any) {
+      lastError = err;
+      // Network fetch error or connection refused while backend is cold-starting
+      if (attempt < maxRetries && (err.name === 'TypeError' || err.message?.includes('fetch') || err.message?.includes('NetworkError') || err.message?.includes('Failed to fetch'))) {
+        const delay = baseDelayMs * Math.pow(1.5, attempt);
+        console.warn(`[VaruNet] Connecting to cloud backend... Retrying ${path} in ${Math.round(delay)}ms (attempt ${attempt + 1}/${maxRetries})...`);
+        await new Promise((r) => setTimeout(r, delay));
+        continue;
+      }
+      throw err;
+    }
+  }
+  throw lastError ?? new Error(`API ${path} timed out after ${maxRetries} retries`);
 }
 
 // ─── Types ────────────────────────────────────────────────────────────────────

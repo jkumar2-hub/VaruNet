@@ -1708,18 +1708,42 @@ export function App() {
     };
   }, [variable, depth, timestamp]);
 
-  // 2. Fetch Argo floats once on mount
+  // 2. Fetch Argo floats on mount (with automatic polling until cloud backend is awake)
   useEffect(() => {
-    getFloats()
-      .then((r) => setFloats(r.floats ?? []))
-      .catch((e) => console.error('Float fetch error:', e));
+    let alive = true;
+    const loadFloats = async (attempt = 0) => {
+      try {
+        const r = await getFloats();
+        if (alive && r?.floats && r.floats.length > 0) {
+          setFloats(r.floats);
+        }
+      } catch {
+        if (alive && attempt < 8) {
+          setTimeout(() => loadFloats(attempt + 1), 3500);
+        }
+      }
+    };
+    loadFloats();
+    return () => { alive = false; };
   }, []);
 
-  // 3. Fetch Gliders once on mount
+  // 3. Fetch Gliders on mount (with automatic polling until cloud backend is awake)
   useEffect(() => {
-    getGliders()
-      .then((r) => setGliders(r.gliders ?? []))
-      .catch((e) => console.error('Glider fetch error:', e));
+    let alive = true;
+    const loadGliders = async (attempt = 0) => {
+      try {
+        const r = await getGliders();
+        if (alive && r?.gliders && r.gliders.length > 0) {
+          setGliders(r.gliders);
+        }
+      } catch {
+        if (alive && attempt < 8) {
+          setTimeout(() => loadGliders(attempt + 1), 3500);
+        }
+      }
+    };
+    loadGliders();
+    return () => { alive = false; };
   }, []);
 
   // 4. Select Argo Float → select target in right panel & load empirical profile
