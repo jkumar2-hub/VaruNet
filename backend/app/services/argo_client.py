@@ -273,7 +273,7 @@ def get_float_profile(wmo_id: str) -> dict[str, Any]:
         import math
         model_t, model_s = [], []
         for d in depths:
-            t_m, s_m, _ = calculate_water_properties(lat, lon, d)
+            t_m, s_m, _ = calculate_water_properties(lat, lon, d, mask_land=False)
             model_t.append(t_m)
             model_s.append(s_m)
 
@@ -311,7 +311,7 @@ def get_float_profile(wmo_id: str) -> dict[str, Any]:
         depths_fb = [0, 10, 25, 50, 75, 100, 150, 200, 300, 500, 750, 1000, 1500, 2000]
         mod_t, mod_s = [], []
         for d in depths_fb:
-            t, s, _ = calculate_water_properties(lat_s, lon_s, d)
+            t, s, _ = calculate_water_properties(lat_s, lon_s, d, mask_land=False)
             mod_t.append(round(t, 2))
             mod_s.append(round(s, 2))
 

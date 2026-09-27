@@ -27,8 +27,8 @@ def is_land(lat: float, lon: float) -> bool:
         if lat >= coast_lat:
             return True
 
-    # Horn of Africa & East African Coast
-    if lat <= 12.0 and lon < 51.0:
+    # Horn of Africa & East African Coast (down to Cape Agulhas ~35°S)
+    if -35.0 <= lat <= 12.0 and lon < 51.0:
         if lon < 40.0 + max(0, lat + 10) * 0.6:
             return True
 
@@ -141,13 +141,13 @@ def get_surface_current(lat: float, lon: float, timestamp: str = "") -> tuple[fl
 
     return round(float(u), 4), round(float(v), 4)
 
-def calculate_water_properties(lat: float, lon: float, depth: float, timestamp: str = "") -> tuple[float, float, float]:
+def calculate_water_properties(lat: float, lon: float, depth: float, timestamp: str = "", mask_land: bool = True) -> tuple[float, float, float]:
     """
     Computes accurate temperature (°C), salinity (PSU), and potential density (kg/m^3)
     at any geographic coordinate and depth throughout the Indian Ocean water column,
     accounting for annual monsoonal cycles based on the forecast date.
     """
-    if is_land(lat, lon):
+    if mask_land and is_land(lat, lon):
         return -9999.0, -9999.0, -9999.0
 
     # Parse month from forecast date (defaults to May pre-monsoon if unspecified)
