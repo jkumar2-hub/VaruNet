@@ -1,52 +1,33 @@
 # VaruNet Tactical Ocean Command Deck — Frontend
 
 > **React 19** · **TypeScript** · **Vite 6** · **Three.js / WebGL** · **Tailwind CSS v4**  
-> **Lead Frontend Engineer:** **Sophie Alveera Muskan** ([@Sophie-Ms](https://github.com/Sophie-Ms))
+> **Team Lead:** **Jitin Kumar** ([@jkumar2-hub](https://github.com/jkumar2-hub))  
+> **3D WebGL Lead (Member 2):** **Sophie Alveera Muskan** ([@Sophie-Ms](https://github.com/Sophie-Ms))  
+> **Tactical UI/UX & Interoperability Lead (Member 3 & 6):** **Moulika** ([@moulika13612](https://github.com/moulika13612))
 
 ---
 
-## 🌟 Lead Frontend Contributor: Sophie Alveera Muskan
+## 👥 Frontend Engineering Team & Deliverables
 
-**Sophie Alveera Muskan** led the frontend architecture, UI/UX design system, and 3D WebGL data visualization pipeline for VaruNet. Her core contributions include:
+### 🎖️ Jitin Kumar — Team Lead & Full-Stack System Architect
+* **Microservice Orchestration & Client Architecture (`api/client.ts`)**: Designed the resilient client API layer equipped with automated heartbeat polling and exponential backoff, ensuring seamless zero-reload recovery during cloud container cold starts.
+* **Ground-Truthing Mathematics & Integration**: Defined the mathematical specifications for the SVG CTD profile co-location engine and statistical validation algorithms (RMSE, $\Delta T$, $R^2$).
+* **Full-Stack End-to-End Alignment**: Maintained strict architectural compliance between frontend state models and backend FastAPI hydrodynamic schemas.
 
-### 1. 🌍 3D Volumetric Ocean Digital Twin (`OceanGlobe3D.tsx`, `proceduralEarth.ts`)
-* Implemented browser-native **Three.js / WebGL** rendering of the Indian Ocean basin with dual-mode texturing (Photorealistic NASA Blue Marble bathymetry & High-contrast tactical dark mode).
-* Developed custom **GLSL volumetric ocean shaders** with smooth Hermite edge feathering to visualize Sea Surface Temperature (SST), Practical Salinity (PSU), and Potential Density ($\sigma_\theta$).
-* Built **physical depth contraction mechanics (0–2,000m)**, intuitively sinking the active data plane into the Earth's interior as depth increases.
-* Integrated **geodetic raycaster HUD**, displaying dynamic latitude, longitude, and physical property values on cursor hover.
-* Created **dynamic isotherm contouring**, rendering real-time isothermal boundary rings (e.g., 28°C threshold) over active ocean fields.
+### 🌊 Sophie Alveera Muskan — 3D WebGL & Geospatial Visualization Lead (Member 2)
+* **3D Volumetric Ocean Digital Twin (`OceanGlobe3D.tsx`, `proceduralEarth.ts`)**: Implemented browser-native **Three.js / WebGL** rendering of the Indian Ocean basin with dual-mode texturing (Photorealistic NASA Blue Marble bathymetry & High-contrast tactical dark mode).
+* **Volumetric Mesh Shaders**: Developed custom **GLSL volumetric ocean shaders** with smooth Hermite edge-feathering to visualize Sea Surface Temperature (SST), Practical Salinity (PSU), and Potential Density ($\sigma_\theta$) with zero land bleed.
+* **Physical Depth Contraction (0–2,000m)**: Built physical depth contraction mechanics, intuitively sinking the active data plane into the Earth's interior as depth increases to give operators true 3D bathypelagic depth perception.
+* **Geodetic Raycaster HUD**: Integrated a 60 FPS raycasting HUD, displaying dynamic latitude, longitude, and physical ocean properties on cursor hover.
+* **Dynamic Isotherm Contouring**: Created real-time isothermal boundary rings (e.g., 28°C threshold) rendered dynamically over active ocean fields.
 
-### 2. 🎛️ Tactical Command Deck Architecture (`App.tsx`, `TopBar.tsx`, `RightSidebar.tsx`)
-* Engineered the military-grade dark command deck layout with frosted-glass aesthetic (`backdrop-blur-md`), collapsible side decks, and responsive multi-panel telemetry cards.
-* Built the **Top Status Bar** featuring institutional data provenance badges (`LIVE`, `MODEL`, `FALLBACK SIMULATION`) and live LAS probe heartbeat indicators.
-* Designed the **Left Mission Deck**:
-  * Physical ocean parameter selector (Temperature, Salinity, Density)
-  * Dynamic depth navigation slider (0–2,000m) with vertical exaggeration controls (1x–10x)
-  * Scientific color palette switcher (`Thermal`, `Viridis`, `Jet`, `Plasma`, `RdBu`) with SVG preview bars (`ColorbarPanel.tsx`)
-  * Drag-and-drop NetCDF (`.nc`, `.nc4`) and delimited CSV profile ingestion interface (`DataIngestionPanel.tsx`)
-  * Biogeochemical (BGC) floats telemetry monitor (`BGCPanel.tsx`)
-
-### 3. ⏱️ 4D Spatiotemporal Mission HUD (`SpatiotemporalController.tsx`)
-* Designed the expandable bottom ribbon featuring a 12-month monsoonal calendar scrubber (Northeast Monsoon, Spring Transition, Southwest Monsoon, Post-Monsoon).
-* Built a continuous **900ms time-step animation engine**, allowing operators to watch annual thermal inversions and monsoonal current reversals unfold in real time.
-* Added quick-jump depth presets for immediate surface (0m), thermocline (100m, 500m), and deep-sea (1km, 2km) analysis.
-
-### 4. 📊 Ground-Truthing CTD & Sensor Workstations (`ExpandedCTDModal.tsx`, `ExpandedGliderModal.tsx`)
-* Implemented high-precision **SVG vertical CTD sounding visualizers**, co-locating observed in-situ Argo float profiles (emerald curve) against numerical ocean models (purple curve).
-* Integrated on-the-fly statistical validation metrics: **Root Mean Square Error (RMSE)**, surface temperature delta ($\Delta T$), and Pearson correlation ($R^2$).
-* Built the **Multi-Tab Deep-Sea Glider Workstation**:
-  * *Physical CTD*: Temperature and salinity sounding curves down to 1,000m depth.
-  * *Biogeochemical (BGC)*: Dissolved Oxygen ($O_2$) revealing the Northern Indian Ocean Oxygen Minimum Zone (OMZ) and Chlorophyll-a detecting the Deep Chlorophyll Maximum (DCM).
-  * *Flight Telemetry*: Artificial horizon (pitch/roll), Depth-Averaged Current (DAC) compass vector, hull vacuum seal gauge (7.6 inHg), and battery status.
-  * *Sawtooth Transect*: 2D yo-yo dive-climb cross-section across mission waypoints.
-
-### 5. 🔄 3D Mission Life-Cycle Simulators (`ArgoSimulationModal.tsx`, `GliderSimulationModal.tsx`)
-* **10-Day Argo Profiling Simulator**: Created an interactive 3D multi-stage animation tracking an Argo float through satellite uplink, descent to 1,000m parking depth, 9-day neutral isobaric drift, 2,000m profile descent, ascending CTD scan, and surface recovery.
-* **Glider Sawtooth Flight Simulator**: Implemented interactive 3D physics visualization of variable-buoyancy sawtooth propulsion with playback scrubbers and multi-speed controls (1x, 2x, 5x).
-
-### 6. 🛡️ Resilient Client Data Layer (`src/api/client.ts`)
-* Implemented robust automated polling with exponential backoff to handle free-tier cloud backend cold starts (30–45s) without requiring user page reloads.
-* Seamlessly binds REST endpoints, OGC WMS/WCS services, and local simulation fallbacks.
+### 🎛️ Moulika — Tactical UI/UX Workstations & Data Interoperability Lead (Member 3 & 6)
+* **Tactical Command Deck Architecture (`App.tsx`, `TopBar.tsx`, `RightSidebar.tsx`)**: Engineered the military-grade dark command deck layout with frosted-glass aesthetic (`backdrop-blur-md`), collapsible side decks, and responsive multi-panel telemetry cards.
+* **Top Status Bar & Operational Provenance**: Built the operational status bar with institutional data provenance badges (`LIVE`, `MODEL`, `FALLBACK SIMULATION`) and live LAS probe heartbeat indicators.
+* **4D Spatiotemporal Mission HUD (`SpatiotemporalController.tsx`)**: Designed the expandable bottom ribbon with a 12-month monsoonal calendar scrubber and continuous **900ms time-step animation engine** to animate seasonal current reversals and thermal inversions.
+* **Ground-Truthing CTD & Sensor Workstations (`ExpandedCTDModal.tsx`, `ExpandedGliderModal.tsx`)**: Implemented high-precision **SVG vertical CTD sounding visualizers** co-locating observed in-situ Argo float profiles (emerald curve) against numerical ocean models (purple curve), and built the 4-tab deep-sea glider workstation (OMZ/DCM detection and flight attitude).
+* **3D Mission Life-Cycle Simulators (`ArgoSimulationModal.tsx`, `GliderSimulationModal.tsx`)**: Created interactive 3D simulations for the 10-day Argo profiling lifecycle and autonomous glider sawtooth yo-yo flight dynamics.
+* **Data Ingestion & OGC GIS Suite (`DataIngestionPanel.tsx`, `OGCInspectorModal.tsx`)**: Built the drag-and-drop NetCDF and delimited CSV profile ingestion interface, along with the OGC WMS 1.3.0 and WCS 1.1.2 GIS inspector for defense networks.
 
 ---
 
