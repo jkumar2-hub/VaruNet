@@ -264,9 +264,24 @@ Access the application at `http://localhost` (Port 80).
 | `GET` | `/wcs` | OGC Web Coverage Service 1.1.2 (`GetCapabilities`, `GetCoverage`) |
 | `GET` | `/api/health` | System diagnostics, LAS probe status, and data source catalog |
 
+## 👥 Core Development Team & Roles
+
+| Contributor | Role & Domain | Primary Focus & Deliverables |
+| :--- | :--- | :--- |
+| **Sophie Alveera Muskan**<br>([@Sophie-Ms](https://github.com/Sophie-Ms)) | **Frontend Lead & 3D Interactive Visualization Engineer** | • **3D Ocean Digital Twin (`OceanGlobe3D.tsx`, Three.js/WebGL)**: Volumetric mesh shaders, photorealistic NASA Blue Marble / tactical dark textures, 0–2,000m physical depth contraction, geodetic cursor HUD, and dynamic isotherm contours.<br>• **Tactical Command Deck UI (`App.tsx`, `TopBar.tsx`, `RightSidebar.tsx`)**: Military-grade dark tactical interface, glassmorphism UI, resilient failover status badges, and responsive multi-panel telemetry layouts.<br>• **4D Spatiotemporal Mission HUD (`SpatiotemporalController.tsx`)**: 12-month monsoonal scrubber and 900ms time-step animation playback engine for seasonal thermal and current reversals.<br>• **CTD Ground-Truthing & Sensor Workstations (`ExpandedCTDModal.tsx`, `ExpandedGliderModal.tsx`)**: High-precision SVG dual-curve CTD sounders with real-time RMSE / $R^2$ validation, plus 4-tab deep-sea glider workstation.<br>• **3D Lifecycle Simulators (`ArgoSimulationModal.tsx`, `GliderSimulationModal.tsx`)**: Interactive step-by-step simulations of the 10-day Argo profiling cycle and glider sawtooth (yo-yo) flight dynamics.<br>• **Scientific Panels & Ingestion UI**: Colorbar controls (`ColorbarPanel.tsx`), drag-and-drop NetCDF/CSV parser (`DataIngestionPanel.tsx`), BGC float monitor (`BGCPanel.tsx`), and OGC GIS inspector (`OGCInspectorModal.tsx`). |
+| **Jitin Kumar**<br>([@jkumar2-hub](https://github.com/jkumar2-hub)) | **Backend & Hydrodynamic Modeling Lead** | • **FastAPI Microservices**: Asynchronous REST API, ERDDAP synchronization daemon, and in-memory spatial caching.<br>• **Ocean Physics Kernel (`ocean_physics.py`)**: Localized Indian Ocean circulation models (SMC, Somali Jet, Wyrtki Jet, and EOS-80 thermal stratification).<br>• **IAMSAR SAR Drift Engine (`lagrangian_drift.py`)**: 4th-Order Runge-Kutta numerical solver and dynamic leeway expansion matrix.<br>• **OGC Interoperability Suite (`ogc_service.py`)**: WMS 1.3.0 and WCS 1.1.2 endpoints for defense C2 and GIS integration.<br>• **CF-Compliant Ingestion (`netcdf_parser.py`)**: Multi-dimensional NetCDF parsing with `xarray` and auto-detection of standard names. |
+
+### 🌟 Frontend Engineering Highlights — Sophie Alveera Muskan
+Sophie Alveera Muskan architected and implemented VaruNet's frontend command center:
+1. **Interactive 3D Digital Twin Engine**: Developed the complete Three.js/WebGL geospatial visualization canvas, handling dynamic spherical projection, custom GLSL volumetric ocean shaders, depth-stratified data slicing (0–2,000m), and real-time geodetic coordinate mapping.
+2. **Tactical Multi-Deck UI/UX**: Designed the cohesive dark-mode aesthetic (Tailwind CSS v4 + Lucide icons), balancing dense scientific readouts with high operational clarity for naval operators and Coast Guard watchstanders.
+3. **Complex Oceanographic Sensor Visualizers**: Implemented interactive SVG profiling charts comparing empirical in-situ Argo soundings against numerical model runs with on-the-fly RMSE, $\Delta T$, and $R^2$ ground-truthing metrics.
+4. **Interactive Mission Simulators**: Engineered step-by-step 3D animations modeling both the 10-day multi-phase Argo float lifecycle (surface transmission, parking drift, 2,000m dive, ascending CTD scan) and deep-sea autonomous glider sawtooth flight dynamics.
+5. **Robust Client Data Flow**: Built the resilient client API layer with automatic heartbeat polling and exponential backoff, ensuring zero-reload recovery during server cold starts.
+
 ---
 
-## 👥 Hackathon Team & Acknowledgements
+## 🏛️ Hackathon Acknowledgements & Institutional Standards
 
 * **Developed for:** Smart India Hackathon (SIH 2026) · Problem Statement 26067
 * **Organization:** Ministry of Earth Sciences (MoES) / Indian National Centre for Ocean Information Services (INCOIS)
