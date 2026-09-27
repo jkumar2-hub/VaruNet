@@ -2,8 +2,8 @@
 
 > **React 19** · **TypeScript** · **Vite 6** · **Three.js / WebGL** · **Tailwind CSS v4**  
 > **Team Lead:** **Jitin Kumar** ([@jkumar2-hub](https://github.com/jkumar2-hub))  
-> **3D WebGL Lead (Member 2):** **Sophie Alveera Muskan** ([@Sophie-Ms](https://github.com/Sophie-Ms))  
-> **Tactical UI/UX & Interoperability Lead (Member 3 & 6):** **Moulika** ([@moulika13612](https://github.com/moulika13612))
+> **3D WebGL Lead:** **Sophie Alveera Muskan** ([@Sophie-Ms](https://github.com/Sophie-Ms))  
+> **Tactical UI/UX & Interoperability Lead:** **Moulika** ([@moulika13612](https://github.com/moulika13612))
 
 ---
 
@@ -14,14 +14,14 @@
 * **Ground-Truthing Mathematics & Integration**: Defined the mathematical specifications for the SVG CTD profile co-location engine and statistical validation algorithms (RMSE, $\Delta T$, $R^2$).
 * **Full-Stack End-to-End Alignment**: Maintained strict architectural compliance between frontend state models and backend FastAPI hydrodynamic schemas.
 
-### 🌊 Sophie Alveera Muskan — 3D WebGL & Geospatial Visualization Lead (Member 2)
+### 🌊 Sophie Alveera Muskan — 3D WebGL & Geospatial Visualization Lead
 * **3D Volumetric Ocean Digital Twin (`OceanGlobe3D.tsx`, `proceduralEarth.ts`)**: Implemented browser-native **Three.js / WebGL** rendering of the Indian Ocean basin with dual-mode texturing (Photorealistic NASA Blue Marble bathymetry & High-contrast tactical dark mode).
 * **Volumetric Mesh Shaders**: Developed custom **GLSL volumetric ocean shaders** with smooth Hermite edge-feathering to visualize Sea Surface Temperature (SST), Practical Salinity (PSU), and Potential Density ($\sigma_\theta$) with zero land bleed.
 * **Physical Depth Contraction (0–2,000m)**: Built physical depth contraction mechanics, intuitively sinking the active data plane into the Earth's interior as depth increases to give operators true 3D bathypelagic depth perception.
 * **Geodetic Raycaster HUD**: Integrated a 60 FPS raycasting HUD, displaying dynamic latitude, longitude, and physical ocean properties on cursor hover.
 * **Dynamic Isotherm Contouring**: Created real-time isothermal boundary rings (e.g., 28°C threshold) rendered dynamically over active ocean fields.
 
-### 🎛️ Moulika — Tactical UI/UX Workstations & Data Interoperability Lead (Member 3 & 6)
+### 🎛️ Moulika — Tactical UI/UX Workstations & Data Interoperability Lead
 * **Tactical Command Deck Architecture (`App.tsx`, `TopBar.tsx`, `RightSidebar.tsx`)**: Engineered the military-grade dark command deck layout with frosted-glass aesthetic (`backdrop-blur-md`), collapsible side decks, and responsive multi-panel telemetry cards.
 * **Top Status Bar & Operational Provenance**: Built the operational status bar with institutional data provenance badges (`LIVE`, `MODEL`, `FALLBACK SIMULATION`) and live LAS probe heartbeat indicators.
 * **4D Spatiotemporal Mission HUD (`SpatiotemporalController.tsx`)**: Designed the expandable bottom ribbon with a 12-month monsoonal calendar scrubber and continuous **900ms time-step animation engine** to animate seasonal current reversals and thermal inversions.
